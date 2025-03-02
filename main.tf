@@ -12,7 +12,7 @@ provider "aws" {
 }
 
 data "aws_ami" "ami" {
-  owners = ["137112412989"] #aws owner id
+  owners      = ["137112412989"] #aws owner id
   most_recent = true
 
 }
