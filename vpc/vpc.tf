@@ -1,5 +1,5 @@
 data "aws_availability_zones" "this" {
-  all_availability_zones = true
+  # all_availability_zones = true
   state                  = "available"
 }
 
@@ -15,6 +15,7 @@ resource "aws_subnet" "public" {
   vpc_id            = aws_vpc.this.id
   cidr_block        = cidrsubnet(aws_vpc.this.cidr_block, 8, count.index)
   availability_zone = data.aws_availability_zones.this.names[count.index]
+  map_public_ip_on_launch = true
   tags = {
     Name = "PublicSubnet-${data.aws_availability_zones.this.names[count.index]}"
   }

@@ -17,8 +17,9 @@ module "vpc" {
 
 resource "aws_security_group" "this" {
   vpc_id      = module.vpc.vpc_id
-  description = "Allow SSH and HTTP inbound traffic"
+  description = "allow SSH and HTTP inbound traffic"
 
+  ///workaround
   ingress {
     from_port   = 22
     to_port     = 22
@@ -46,16 +47,4 @@ module "server-1" {
   subnet_id           = module.vpc.public_subnet_ids[0]
   security_group_id = aws_security_group.this.id
   internet_gateway = module.vpc.internet_gateway_id
-}
-
-output "vpc_id" {
-  value = module.vpc.vpc_id
-}
-
-output "public_subnet_ids" {
-  value = module.vpc.public_subnet_ids
-}
-
-output "internet_gateway_id" {
-  value = module.vpc.internet_gateway_id
 }
