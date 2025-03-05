@@ -12,8 +12,22 @@ provider "aws" {
 }
 
 data "aws_ami" "ami" {
-  owners      = ["137112412989"] #aws owner id
+  owners      = ["amazon"] #aws owner id
   most_recent = true
 
+  filter {
+    name = "name"
+    values =  ["ubuntu/images/hvm-ssd-gp3/*"]
+  }
+}
+
+resource "aws_instance" "server" { 
+  ami = data.aws_ami.ami.id
+  instance_type = "t3.micro"
+
+  tags = {
+    "Name" = "HiWorld"
+  }
+  
 }
 
